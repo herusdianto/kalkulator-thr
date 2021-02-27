@@ -230,6 +230,12 @@
     </div>
 
     <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+
         function hitungBiayaJabatan(bruto) {
             let biayaJabatan = bruto * 5 / 100
             if (biayaJabatan > 6000000)
