@@ -1,7 +1,7 @@
 {
   "name": "Kalkulator THR",
   "short_name": "THR",
-  "description": "Kalkulator sederhana untuk menghitung pajak & netto THR yang didapat",
+  "description": "Kalkulator sederhana untuk menghitung pajak & netto THR",
   "lang": "id-ID",
   "dir": "ltr",
   "theme_color": "#5755d9",

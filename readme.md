@@ -1,6 +1,6 @@
 # Kalkulator THR
 
-Kalkulator sederhana untuk menghitung pajak & netto THR yang didapat.
+Kalkulator sederhana untuk menghitung pajak & netto THR.
 
 Silahkan lihat demo [disini](https://kalkulator-thr.web.app/).
 
