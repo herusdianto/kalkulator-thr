@@ -2,6 +2,8 @@
 
 Kalkulator sederhana untuk menghitung pajak & netto THR yang didapat.
 
+Silahkan lihat demo [disini](https://kalkulator-thr.web.app/).
+
 ## Built With:
 1. [Spectre CSS](https://picturepan2.github.io/spectre/)
 
