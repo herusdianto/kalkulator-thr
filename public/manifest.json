@@ -1,0 +1,21 @@
+{
+  "name": "Kalkulator THR",
+  "short_name": "THR",
+  "description": "Kalkulator sederhana untuk menghitung pajak & netto THR yang didapat",
+  "lang": "id-ID",
+  "dir": "ltr",
+  "theme_color": "#5755d9",
+  "start_url": ".",
+  "background_color": "#5755d9",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "icons": [{
+    "src": "icons/apple-icon-72x72.png",
+    "sizes": "72x72",
+    "type": "image/png"
+  }, {
+    "src": "icons/512x512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}
