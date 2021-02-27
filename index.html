@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="heru.rusdianto.93@gmail.com">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <title>Kalkulator THR</title>
+    <style>
+        .container {
+            margin-top: 20px;
+            padding: 10px;
+        }
+        .panel {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero hero-sm bg-primary">
+        <div class="hero-body">
+            <h1>
+                Kalkulator THR
+            </h1>
+            <p>
+                Kalkulator sederhana untuk menghitung pajak & netto THR yang didapat
+            </p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="panel">
+            <div class="columns">
+                <div class="column col-4 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="form-label" for="gajiBrutoPerbulan">Gaji Bruto Perbulan</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Ketik gaji bruto perbulan" id="gajiBrutoPerbulan"
+                                   onkeypress="hitung()" onkeydown="hitung()" onkeyup="hitung()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="statusPtkp">Status PTKP</label>
+                        <div class="control">
+                            <select class="form-select" id="statusPtkp" onchange="hitung()">
+                                <option>TK</option>
+                                <option>K</option>
+                                <option>K/I</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahTanggungan">Jumlah Tanggungan</label>
+                        <div class="control">
+                            <select class="form-select" id="jumlahTanggungan" onchange="hitung()">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gajiBrutoSetahun">Gaji Bruto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Gaji Bruto Perbulan x 12" id="gajiBrutoSetahun"
+                                   disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="biayaJabatanGajiSetahun">Biaya Jabatan Gaji Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="5% x Gaji Bruto Setahun" id="biayaJabatanGajiSetahun"
+                                   disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gajiNettoSetahun">Gaji Netto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Gaji Bruto Setahun - Biaya Jabatan"
+                                   id="gajiNettoSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahPtkp">Jumlah PTKP</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Jumlah PTKP"
+                                   id="jumlahPtkp" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column col-4 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahPkpGajiNettoSetahun">Jumlah PKP Gaji Netto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Gaji Netto Setahun - Jumlah PTKP"
+                                   id="jumlahPkpGajiNettoSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="tarifPphGajiSetahun">Tarif PPh Gaji Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Tarif PPh Gaji Setahun"
+                                   id="tarifPphGajiSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahPphGajiSetahun">Jumlah PPh Gaji Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Jumlah PPh Gaji Setahun"
+                                   id="jumlahPphGajiSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahBrutoThr">Jumlah Bruto THR</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Jumlah Bruto THR"
+                                   id="jumlahBrutoThr" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="penghasilanBrutoSetahun">Penghasilan Bruto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Gaji Bruto Setahun + THR"
+                                   id="penghasilanBrutoSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="biayaJabatanPenghasilanBrutoSetahun">Biaya Jabatan Penghasilan Bruto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="5% x Penghasilan Bruto" id="biayaJabatanPenghasilanBrutoSetahun"
+                                   disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column col-4 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="form-label" for="penghasilanNettoSetahun">Penghasilan Netto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Penghasilan Bruto - Biaya Jabatan Bruto"
+                                   id="penghasilanNettoSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahPkpPenghasilanNettoSetahun">Jumlah PKP Penghasilan Netto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Penghasilan Netto Setahun - Jumlah PTKP"
+                                   id="jumlahPkpPenghasilanNettoSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="tarifPphPenghasilanNettoSetahun">Tarif PPh Penghasilan Netto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Tarif PPh Penghasilan Netto Setahun"
+                                   id="tarifPphPenghasilanNettoSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahPphPenghasilanNettoSetahun">Jumlah PPh Penghasilan Netto Setahun</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="PPh Penghasilan Netto Setahun"
+                                   id="jumlahPphPenghasilanNettoSetahun" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahPphThr">Jumlah PPh THR</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="PPh Netto Setahun - PPh Gaji"
+                                   id="jumlahPphThr" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="jumlahNettoThr">Jumlah Netto THR</label>
+                        <div class="control">
+                            <input class="form-input" placeholder="Bruto THR - PPh THR"
+                                   id="jumlahNettoThr" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function hitungBiayaJabatan(bruto) {
+            let biayaJabatan = bruto * 5 / 100
+            if (biayaJabatan > 6000000)
+                biayaJabatan = 6000000
+
+            return biayaJabatan
+        }
+
+        function hitungPph(pkp) {
+            let tarif = 0
+            let pph = 0
+
+            if (pkp > 0) {
+                // lapis 1
+                if (pkp <= 50000000) {
+                    tarif = 5
+                    pph = tarif * pkp / 100
+                }
+                // lapis 2
+                else if (pkp <= 250000000) {
+                    tarif = 5
+                    pph = tarif * pkp / 100
+
+                    pkp -= 50000000
+
+                    tarif = 15
+                    pph += tarif * pkp / 100
+                }
+                // lapis 3
+                else if (pkp <= 500000000) {
+                    tarif = 5
+                    pph = tarif * pkp / 100
+
+                    pkp -= 50000000
+
+                    tarif = 15
+                    pph += tarif * pkp / 100
+
+                    pkp -= 200000000
+
+                    tarif = 25
+                    pph += tarif * pkp / 100
+                }
+                // lapis 4
+                else {
+                    tarif = 5
+                    pph = tarif * pkp / 100
+
+                    pkp -= 50000000
+
+                    tarif = 15
+                    pph += tarif * pkp / 100
+
+                    pkp -= 200000000
+
+                    tarif = 25
+                    pph += tarif * pkp / 100
+
+                    pkp -= 250000000
+
+                    tarif = 30
+                    pph += tarif * pkp / 100
+                }
+            }
+
+            return { tarif, pph }
+        }
+
+        function hitung() {
+            let gajiBrutoPerbulan = document.getElementById('gajiBrutoPerbulan').value
+
+            let gajiBrutoSetahun = 0
+            let biayaJabatanGajiSetahun = 0
+            let gajiNettoSetahun = 0
+            let jumlahPtkp = 0
+            let jumlahPkpGajiNettoSetahun = 0
+            let tarifPphGajiSetahun = 0
+            let jumlahPphGajiSetahun = 0
+            let penghasilanBrutoSetahun = 0
+            let biayaJabatanPenghasilanBrutoSetahun = 0
+            let penghasilanNettoSetahun = 0
+            let jumlahPkpPenghasilanNettoSetahun = 0
+            let tarifPphPenghasilanNettoSetahun = 0
+            let jumlahPphPenghasilanNettoSetahun = 0
+            let jumlahPphThr = 0
+            let jumlahNettoThr = 0
+
+            if (gajiBrutoPerbulan && !isNaN(gajiBrutoPerbulan)) {
+                gajiBrutoPerbulan = parseInt(gajiBrutoPerbulan)
+
+                gajiBrutoSetahun = gajiBrutoPerbulan * 12
+
+                biayaJabatanGajiSetahun = hitungBiayaJabatan(gajiBrutoSetahun)
+
+                gajiNettoSetahun = gajiBrutoSetahun - biayaJabatanGajiSetahun
+
+                let statusPtkp = document.getElementById('statusPtkp').value
+                let jumlahTanggungan = document.getElementById('jumlahTanggungan').value
+
+                switch (statusPtkp) {
+                    case 'TK':
+                        jumlahPtkp = 54000000
+                        break
+                    case 'K':
+                        jumlahPtkp = 58500000
+                        break
+                    case 'K/I':
+                        jumlahPtkp = 112500000
+                        break
+                }
+
+                let ptkpTanggungan = jumlahTanggungan * 4500000
+
+                jumlahPtkp += ptkpTanggungan
+
+                jumlahPkpGajiNettoSetahun = gajiNettoSetahun - jumlahPtkp
+
+                if (jumlahPkpGajiNettoSetahun < 0) {
+                    jumlahPkpGajiNettoSetahun = 0
+                }
+
+                penghasilanBrutoSetahun = gajiBrutoSetahun + gajiBrutoPerbulan
+
+                biayaJabatanPenghasilanBrutoSetahun = hitungBiayaJabatan(penghasilanBrutoSetahun)
+
+                penghasilanNettoSetahun = penghasilanBrutoSetahun - biayaJabatanPenghasilanBrutoSetahun
+
+                jumlahPkpPenghasilanNettoSetahun = penghasilanNettoSetahun - jumlahPtkp
+
+                if (jumlahPkpPenghasilanNettoSetahun < 0) {
+                    jumlahPkpPenghasilanNettoSetahun = 0
+                }
+
+                let hitungPphGaji = hitungPph(jumlahPkpGajiNettoSetahun)
+                tarifPphGajiSetahun = hitungPphGaji.tarif
+                jumlahPphGajiSetahun = hitungPphGaji.pph
+
+                let hitungPphPenghasilanNettoSetahun = hitungPph(jumlahPkpPenghasilanNettoSetahun)
+                tarifPphPenghasilanNettoSetahun = hitungPphPenghasilanNettoSetahun.tarif
+                jumlahPphPenghasilanNettoSetahun = hitungPphPenghasilanNettoSetahun.pph
+
+                jumlahPphThr = jumlahPphPenghasilanNettoSetahun - jumlahPphGajiSetahun
+
+                jumlahNettoThr = gajiBrutoPerbulan - jumlahPphThr
+            }
+
+            document.getElementById('gajiBrutoSetahun').value = gajiBrutoSetahun.toLocaleString('id-ID')
+            document.getElementById('biayaJabatanGajiSetahun').value = biayaJabatanGajiSetahun.toLocaleString('id-ID')
+            document.getElementById('gajiNettoSetahun').value = gajiNettoSetahun.toLocaleString('id-ID')
+            document.getElementById('jumlahPtkp').value = jumlahPtkp.toLocaleString('id-ID')
+            document.getElementById('jumlahPkpGajiNettoSetahun').value = jumlahPkpGajiNettoSetahun.toLocaleString('id-ID')
+            document.getElementById('tarifPphGajiSetahun').value = tarifPphGajiSetahun.toLocaleString('id-ID')
+            document.getElementById('jumlahPphGajiSetahun').value = jumlahPphGajiSetahun.toLocaleString('id-ID')
+            document.getElementById('jumlahBrutoThr').value = gajiBrutoPerbulan.toLocaleString('id-ID')
+            document.getElementById('penghasilanBrutoSetahun').value = penghasilanBrutoSetahun.toLocaleString('id-ID')
+            document.getElementById('biayaJabatanPenghasilanBrutoSetahun').value = biayaJabatanPenghasilanBrutoSetahun.toLocaleString('id-ID')
+            document.getElementById('penghasilanNettoSetahun').value = penghasilanNettoSetahun.toLocaleString('id-ID')
+            document.getElementById('jumlahPkpPenghasilanNettoSetahun').value = jumlahPkpPenghasilanNettoSetahun.toLocaleString('id-ID')
+            document.getElementById('tarifPphPenghasilanNettoSetahun').value = tarifPphPenghasilanNettoSetahun.toLocaleString('id-ID')
+            document.getElementById('jumlahPphPenghasilanNettoSetahun').value = jumlahPphPenghasilanNettoSetahun.toLocaleString('id-ID')
+            document.getElementById('jumlahPphThr').value = jumlahPphThr.toLocaleString('id-ID')
+            document.getElementById('jumlahNettoThr').value = jumlahNettoThr.toLocaleString('id-ID')
+        }
+    </script>
+</body>
+</html>
